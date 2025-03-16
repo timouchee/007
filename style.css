@@ -1,0 +1,41 @@
+body {
+    background-color: #333;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    text-align: center;
+}
+
+button {
+    background-color: #444;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: #555;
+}
+
+#join_game_container{
+    display: none;
+}
+
+#show_in_game
+{
+    display: none;
+}
+
+#choice_action
+{
+    display: none;
+}

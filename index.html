@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>teste de socket</title>
+    <link rel="stylesheet" href="style.css"><!-- ne marche pas -->
+
+</head>
+<body>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="script.js"></script>
+ 
+
+    <div class="container" id="join_game_container">
+        <div class="status">
+            <span>Nombre de joueur prêt : <span id="nb_joueur_ready">0</span>/<span id="nb_persone_connecter">0</span> </span>
+            <br>
+            <span>requis : <span id="nb_joueur_requis">3</span></span>
+        </div>
+        <div class="play-button">
+            <button id="butt_participer" onclick="ready_unready()">play</button>
+        </div>
+        <div id="tes">
+
+        </div>
+    </div>
+
+    <div class="container" id="focus_check">
+        <div class="status">
+            <span>entrer sur le site </span>
+            <br>
+            <input type="text" name="" id="speudo_input" placeholder="your pseudo">
+        </div>
+           
+        <div class="play-button">
+            <button id="butt_participer" onclick="enter_website()">go to site</button>
+        </div>
+
+    </div>
+
+    <div class="container" id="show_in_game">
+        <div class="status">
+            <span>je suis dans la game : </span> <span id="id_game"> </span>
+            <br>
+            <ul id="list_players_in_game">
+                
+            </ul>
+        </div>          
+    </div>
+    <br>
+    <div class="container" id="choice_action">
+        <div id="info_player"></div>
+        <div id="lst_choice">votre liste de choix</div>
+        <select name="" id="choice">
+            <!-- <option value="" selected></option> -->
+        </select>
+    </div>
+
+
+
+
+
+   <!--  
+    pour le moment montre le nom de joueur prêt et affiche 
+    un truc quand on arrive a tous les joeur prêt
+   par contre sa ne donne pas le nb de joeuur ready quand on arrive sur le site
+   par contre sa ne désaffiche pas le truc si tous les joeur ne sont plus prêt
+   -->
+</body>
+</html>
