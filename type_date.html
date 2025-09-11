@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+
+<script>
+
+    let type_action =
+    {
+        1: "utilitaire",
+        2: "attaque",
+        3: "defense",
+        4: "autre",
+    }
+
+    let data_action =
+    {
+        "recharge": { "type": 1, "cout": 0, "priority": 1 },
+
+        "pistolet": { "type": 2, "cout": 1, "priority": 1 },
+        "double_pistolet": { "type": 2, "cout": 2, "priority": 1 },
+        "bazooka": { "type": 2, "cout": 3, "priority": 1 },
+        "lame": { "type": 2, "cout": 3, "priority": 1 },
+        "pisto_lame": { "type": 2, "cout": 3, "priority": 1 },
+
+        "bouclier": { "type": 3, "cout": 0, "beaten": ["bazzoka", "pisto_lame"], "priority": 1 },
+        "miroire": { "type": 3, "cout": 0, "beaten": ["lame"], "negate": ["pisto_lame"], "priority": 1 },
+
+        "arrache": { "type": 4, "cout": 5, "priority": 2 },
+
+    }
+
+    let data_teste_1 =
+    {
+        1: { "action": "reload", "priority": 1 },
+        2: { "action": "shoot", "target": 3, "priority": 1 },
+        3: { "action": "bazzoka", "target": 4, "priority": 1 },
+        4: { "action": "doubleshoot", "target": [3, 1], "priority": 1 },
+        5: { "action": "arrache", "target": 2, "priority": 2 },
+        6: { "action": "arrache", "target": 7, "priority": 2 },
+        7: { "action": "arrache", "target": 6, "priority": 2 },
+    }
+    let data_teste_2 =
+    {
+        1: { "action": "reload", "priority": 1 },
+        2: { "action": "reload", "priority": 1 },
+        3: { "ation": "bazzoka", "target": 4, "priority": 1 },
+        4: { "action": "doubleshoot", "target": [3, 1], "priority": 1 },
+        5: { "action": "remove", "target": 3, "priority": 2 },
+    }
+    let data_teste_3 =
+    {
+        1: { "action": "reload", "priority": 1 },
+        2: { "action": "reload", "priority": 1 },
+        3: { "ation": "bazzoka", "target": 4, "priority": 1 },
+        4: { "action": "doubleshoot", "target": [3, 1], "priority": 1 },
+        5: { "action": "remove", "target": 4, "priority": 2 },
+    }
+
+    function sortByPriority(data) {
+        return Object.fromEntries(
+            Object.entries(data)
+                .sort((a, b) => b[1].priority - a[1].priority) // tri décroissant
+        );
+    }
+
+    function resolution(action) {
+        action = sortByPriority(action); // met les priority elever en premier
+        let effect = {};
+        for (const [unJoueur, uneAction] of Object.entries(action)) 
+        {
+            if (uneAction.check || !uneAction.action || data_action[uneAction.action].type === 3) { break; }
+            console.log(uneAction);
+            if (uneAction.action === "arrache") 
+            {
+                if (action[uneAction.target].action === "arrache") 
+                {
+                    effect[uneAction.target] = { "remove": "arrache" }
+                    effect[unJoueur] = { "remove": "arrache" }
+                    action[unJoueur].check = true;
+                    action[uneAction.target].check = true;                    
+                    action[uneAction.target] = {};
+                    action[unJoueur] = {};
+                }
+                else {
+                    effect[uneAction.target] = { "remove": action[uneAction.target].action }
+                    action[unJoueur].check = true;
+                    action[uneAction.target] = {};
+                }
+
+            }
+            if (uneAction.action === "reload")
+            {
+                effect[unJoueur] = { "add": 1 };
+                action[unJoueur].check = true;
+            }
+            // faut gérer les attaque maitenant man
+
+
+        }
+        console.log(action);
+        console.log(effect);
+
+
+
+    }
+
+    resolution(data_teste_1);
+
+</script>
